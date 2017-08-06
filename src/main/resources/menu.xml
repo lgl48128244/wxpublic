@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <onemenu name="一级菜单">
+      <submenu name="子菜单1" type="click" key="11"></submenu>
+      <submenu name="子菜单1" type="click" key="12"></submenu>
+      <submenu name="子菜单1" type="click" key="13"></submenu>
+      <submenu name="子菜单1" type="click" key="14"></submenu>
+      <submenu name="子菜单1" type="click" key="15"></submenu>
+  </onemenu>
+  <twomenu name="二级菜单">
+      <submenu name="子菜单1" type="click" key="21"></submenu>
+      <submenu name="子菜单1" type="click" key="22"></submenu>
+      <submenu name="子菜单1" type="click" key="23"></submenu>
+      <submenu name="子菜单1" type="click" key="24"></submenu>
+      <submenu name="子菜单1" type="click" key="25"></submenu>
+  </twomenu>
+  <threemenu name="三级菜单">
+      <submenu name="子菜单1" type="click" key="31"></submenu>
+      <submenu name="子菜单1" type="click" key="32"></submenu>
+      <submenu name="子菜单1" type="click" key="33"></submenu>
+      <submenu name="子菜单1" type="click" key="34"></submenu>
+      <submenu name="子菜单1" type="click" key="35"></submenu>
+  </threemenu>
+</root>

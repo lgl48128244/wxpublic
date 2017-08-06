@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Weixin" verbose="1">
+  <test name="Test">
+    <classes>
+      <class name="com.uflowertv.test.WxMenuTest"/>
+      <class name="com.uflowertv.test.WxAccessTokenTest"/>
+      <class name="com.uflowertv.test.WxErrorTest"/>
+    </classes>
+  </test>
+</suite>

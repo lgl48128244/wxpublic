@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>login.html</title>
+ 	<meta name="viewport" content="initial-scale=1.0,width=device-width,maximum-scale=1.0, user-scalable=0,minimum-scale=1.0" />
+    <link rel="stylesheet" href="css/bind.css" />
+	<link rel="stylesheet" href="css/index.css" />
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		//取得XMLHttpRequest对象是AJAX的要点  
+		//此getXMLRequest()方法是根据不同浏览器来取得XMLHttpRequest对象  
+		function getXMLRequest(){  
+		    var request;  
+		    try{  
+		        //for火狐等浏览器  
+		        request = new XMLHttpRequest();  
+		    }catch(e){  
+		        try{  
+		            //for IE  
+		            request = new ActiveXObject("Microsoft.XMLHttp");    
+		        }catch(e){  
+		            alert("您的浏览器不支持AJAX!!!");  
+		            return null;  
+		        }  
+		    }  
+		    return request;  
+		}  
+		var code = function(){
+			var time=new Date().getTime();
+		    //document.getElementById('code').src="../tree/validateCode.do?"+time;
+		    var request = getXMLRequest();//得到XMLHttpRequest对象  
+		    request.onreadystatechange = function(){  
+		        if(request.readyState == 4){  
+		            document.getElementById("code").src = "../tree/validateCode.do?"+time;//改变验证码图片  
+		        }  
+		    }  
+		                //将请求发送出去  
+		    request.open("GET","../tree/validateCode.do?"+time,true);  
+		    request.send(null);  
+		    document.getElementById("pic_auth_code").value = request.responseText;
+		}
+		
+		
+	</script>
+  </head>
+  <body>
+		<div data-role="page" id="register_page" data-theme="none" style="padding: 0px">
+			<div data-role="content" style="padding: 0px">
+				<div class="title">
+					<!--<img class="back" src="img/back.png" onclick="window.history.back();" />-->
+					<p>完善用户信息</p>
+				</div>
+				<div class="row_username">
+					<input id="mobilephone" name="mobilephone" class="mobilephone text_b" data-role="none" type='tel' maxlength="11" placeholder="请输入手机号码" onkeyup="this.value=this.value.replace(/\D/g,'')" />
+					<img id="mobile_delete_ico" class="delete_ico" style="margin-left: 0rem;opacity:0" src="img/ico_delete.png" alt="">
+				</div>
+				<div class="row_auth_code">
+					<div class="auth_code_input">
+						<input id="pic_auth_code" name="pic_auth_code" class="auth_code text_b" type="text" data-role="none" maxlength="4" placeholder="图片验证码" />
+					</div>
+					<img id="code" class="get_pic_auth_code" src="../tree/validateCode.do" onclick="code();">
+				</div>
+				<div class="row_auth_code">
+					<div class="auth_code_input">
+						<input id="auth_code" name="auth_code" class="auth_code text_b" type="tel" data-role="none" maxlength="6" placeholder="手机验证码" onkeyup="this.value=this.value.replace(/\D/g,'')" />
+						<img id="auth_delete_ico" class="delete_ico" style="margin-left: 0rem;opacity:0" src="img/ico_delete.png" alt="">
+					</div>
+					<div id="get_auth_code" class="get_auth_code button_disable">获取验证码</div>
+				</div>
+				<div class="row_agreement">
+					<img id="rule_ico_id1" class="rule_ico" src="img/ico_checked_not.png">
+					<img id="rule_ico_id2" class="rule_ico" src="img/ico_checked.png" style="display: none">
+					<div class="tip_text">同意使用条款及隐私政策</div>
+				</div>
+				<div id="register_err_tip" class="err_tip"></div>
+			</div>
+			<div data-role="footer" data-position="fixed" data-theme="none" class="buttons">
+				<!--<div class="set_pass  button_disable" id="setpass">重置密码</div>-->
+				<div class="next" id="ok">完成</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/bind.js"></script>
+		<script src="js/constant.js" type="text/javascript" charset="utf-8"></script>
+  </body>
+</html>

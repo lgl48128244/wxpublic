@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>首页</title>
+</head>
+<script src="js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript">
+document.writeln("<script type=\"text/javascript\" src=\"js/base.js?"+ Math.random()+"\"></scr"+"ipt>");
+</script>
+<script>
+var BM= new mobile.base.Main();
+$(function(){
+	var prm = new Object();
+	prm.mode="1.0";
+	BM.buildAjax1();
+	BM.ajaxPrm.data=JSON.stringify(prm);
+	BM.ajaxPrm.success=function(data){
+		data = BM.valdateData(data);
+	}
+	$.ajax(BM.ajaxPrm);
+});
+
+/* function choose(id,name){
+	$(".xq>li").css('background','#64a7c4');
+	$(".xq>li").css('color','#fff');
+	var libox=$(".xq>li");
+	for(var i=0;i<libox.length;i++){
+		if($(libox[i]).attr('xqid')==id){
+			$(libox[i]).css('background','#fff');
+			$(libox[i]).css('color','#64a7c4');
+		}
+	}
+	//alert(name);
+	xqId=id;
+	localStorage.xqId=id;
+	localStorage.xqName=name;
+} */
+/* 
+function login(){
+	if(localStorage.userId==undefined){
+		window.location.href=BASE_URL+"rz.html?xqId="+xqId;
+	}else{
+		window.location.href=BASE_URL+"index.html";
+	}
+} */
+</script>
+<body>
+</body>
+</html>

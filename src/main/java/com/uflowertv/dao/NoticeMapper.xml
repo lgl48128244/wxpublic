@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uflowertv.dao.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.uflowertv.model.Notice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wx_user_id" property="wxUserId" jdbcType="VARCHAR" />
+    <result column="wx_user_phone" property="wxUserPhone" jdbcType="VARCHAR" />
+    <result column="wx_user_picname" property="wxUserPicname" jdbcType="VARCHAR" />
+    <result column="wx_question_type" property="wxQuestionType" jdbcType="VARCHAR" />
+    <result column="reply_human" property="replyHuman" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="completeTime" property="completetime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.uflowertv.model.NoticeWithBLOBs" extends="BaseResultMap" >
+    <result column="wx_user_question" property="wxUserQuestion" jdbcType="LONGVARCHAR" />
+    <result column="reply_question" property="replyQuestion" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wx_user_id, wx_user_phone, wx_user_picname, wx_question_type, reply_human, createTime, 
+    completeTime, status
+  </sql>
+  <sql id="Blob_Column_List" >
+    wx_user_question, reply_question
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.uflowertv.model.NoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause} desc
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uflowertv.model.NoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_notice
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_notice
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uflowertv.model.NoticeExample" >
+    delete from wx_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uflowertv.model.NoticeWithBLOBs" >
+    insert into wx_notice (id, wx_user_id, wx_user_phone, 
+      wx_user_picname, wx_question_type, reply_human, 
+      createTime, completeTime, status, 
+      wx_user_question, reply_question)
+    values (#{id,jdbcType=VARCHAR}, #{wxUserId,jdbcType=VARCHAR}, #{wxUserPhone,jdbcType=VARCHAR}, 
+      #{wxUserPicname,jdbcType=VARCHAR}, #{wxQuestionType,jdbcType=VARCHAR}, #{replyHuman,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=VARCHAR}, #{completetime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{wxUserQuestion,jdbcType=LONGVARCHAR}, #{replyQuestion,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uflowertv.model.NoticeWithBLOBs" >
+    insert into wx_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wxUserId != null" >
+        wx_user_id,
+      </if>
+      <if test="wxUserPhone != null" >
+        wx_user_phone,
+      </if>
+      <if test="wxUserPicname != null" >
+        wx_user_picname,
+      </if>
+      <if test="wxQuestionType != null" >
+        wx_question_type,
+      </if>
+      <if test="replyHuman != null" >
+        reply_human,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="completetime != null" >
+        completeTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="wxUserQuestion != null" >
+        wx_user_question,
+      </if>
+      <if test="replyQuestion != null" >
+        reply_question,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserId != null" >
+        #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPhone != null" >
+        #{wxUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPicname != null" >
+        #{wxUserPicname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxQuestionType != null" >
+        #{wxQuestionType,jdbcType=VARCHAR},
+      </if>
+      <if test="replyHuman != null" >
+        #{replyHuman,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="completetime != null" >
+        #{completetime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="wxUserQuestion != null" >
+        #{wxUserQuestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replyQuestion != null" >
+        #{replyQuestion,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uflowertv.model.NoticeExample" resultType="java.lang.Integer" >
+    select count(*) from wx_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_notice
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserId != null" >
+        wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserPhone != null" >
+        wx_user_phone = #{record.wxUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserPicname != null" >
+        wx_user_picname = #{record.wxUserPicname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxQuestionType != null" >
+        wx_question_type = #{record.wxQuestionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyHuman != null" >
+        reply_human = #{record.replyHuman,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.completetime != null" >
+        completeTime = #{record.completetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxUserQuestion != null" >
+        wx_user_question = #{record.wxUserQuestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.replyQuestion != null" >
+        reply_question = #{record.replyQuestion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update wx_notice
+    set id = #{record.id,jdbcType=VARCHAR},
+      wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{record.wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picname = #{record.wxUserPicname,jdbcType=VARCHAR},
+      wx_question_type = #{record.wxQuestionType,jdbcType=VARCHAR},
+      reply_human = #{record.replyHuman,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=VARCHAR},
+      completeTime = #{record.completetime,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      wx_user_question = #{record.wxUserQuestion,jdbcType=LONGVARCHAR},
+      reply_question = #{record.replyQuestion,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_notice
+    set id = #{record.id,jdbcType=VARCHAR},
+      wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{record.wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picname = #{record.wxUserPicname,jdbcType=VARCHAR},
+      wx_question_type = #{record.wxQuestionType,jdbcType=VARCHAR},
+      reply_human = #{record.replyHuman,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=VARCHAR},
+      completeTime = #{record.completetime,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uflowertv.model.NoticeWithBLOBs" >
+    update wx_notice
+    <set >
+      <if test="wxUserId != null" >
+        wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPhone != null" >
+        wx_user_phone = #{wxUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPicname != null" >
+        wx_user_picname = #{wxUserPicname,jdbcType=VARCHAR},
+      </if>
+      <if test="wxQuestionType != null" >
+        wx_question_type = #{wxQuestionType,jdbcType=VARCHAR},
+      </if>
+      <if test="replyHuman != null" >
+        reply_human = #{replyHuman,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="completetime != null" >
+        completeTime = #{completetime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="wxUserQuestion != null" >
+        wx_user_question = #{wxUserQuestion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replyQuestion != null" >
+        reply_question = #{replyQuestion,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.uflowertv.model.NoticeWithBLOBs" >
+    update wx_notice
+    set wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picname = #{wxUserPicname,jdbcType=VARCHAR},
+      wx_question_type = #{wxQuestionType,jdbcType=VARCHAR},
+      reply_human = #{replyHuman,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      completeTime = #{completetime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      wx_user_question = #{wxUserQuestion,jdbcType=LONGVARCHAR},
+      reply_question = #{replyQuestion,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uflowertv.model.Notice" >
+    update wx_notice
+    set wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picname = #{wxUserPicname,jdbcType=VARCHAR},
+      wx_question_type = #{wxQuestionType,jdbcType=VARCHAR},
+      reply_human = #{replyHuman,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      completeTime = #{completetime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uflowertv.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.uflowertv.model.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="created" property="created" jdbcType="VARCHAR" />
+    <result column="loginTime" property="logintime" jdbcType="VARCHAR" />
+    <result column="validatecode" property="validatecode" jdbcType="VARCHAR" />
+    <result column="outdate" property="outdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, pwd, uname, email, created, loginTime, validatecode, outdate
+  </sql>
+  
+  <!-- 登录 -->
+   <select id="login" parameterType="com.uflowertv.model.User" resultType="com.uflowertv.model.User">
+		select
+		<include refid="Base_Column_List" />
+		from wx_system_user where 1=1
+		<if test=" email != null">
+			and email = #{email}
+		</if>
+		<if test="pwd != null">
+			and pwd = #{pwd}
+		</if>
+  </select>
+  
+  <!-- 通过邮件查询 -->
+  <select id="findByEmail" parameterType="string" resultType="com.uflowertv.model.User">
+  	select
+	<include refid="Base_Column_List" />
+	from wx_system_user where email = #{email}
+  </select>
+  
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uflowertv.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_system_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_system_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_system_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uflowertv.model.UserExample" >
+    delete from wx_system_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uflowertv.model.User" >
+    insert into wx_system_user (id, pwd, uname, 
+      email, created, loginTime, 
+      validatecode, outdate)
+    values (#{id,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{created,jdbcType=VARCHAR}, #{logintime,jdbcType=VARCHAR}, 
+      #{validatecode,jdbcType=VARCHAR}, #{outdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.uflowertv.model.User" >
+    insert into wx_system_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pwd != null" >
+        pwd,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="created != null" >
+        created,
+      </if>
+      <if test="logintime != null" >
+        loginTime,
+      </if>
+      <if test="validatecode != null" >
+        validatecode,
+      </if>
+      <if test="outdate != null" >
+        outdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null" >
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="logintime != null" >
+        #{logintime,jdbcType=VARCHAR},
+      </if>
+      <if test="validatecode != null" >
+        #{validatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="outdate != null" >
+        #{outdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uflowertv.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from wx_system_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_system_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null" >
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uname != null" >
+        uname = #{record.uname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.created != null" >
+        created = #{record.created,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logintime != null" >
+        loginTime = #{record.logintime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validatecode != null" >
+        validatecode = #{record.validatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outdate != null" >
+        outdate = #{record.outdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_system_user
+    set id = #{record.id,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR},
+      uname = #{record.uname,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      created = #{record.created,jdbcType=VARCHAR},
+      loginTime = #{record.logintime,jdbcType=VARCHAR},
+      validatecode = #{record.validatecode,jdbcType=VARCHAR},
+      outdate = #{record.outdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uflowertv.model.User" >
+    update wx_system_user
+    <set >
+      <if test="pwd != null" >
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null" >
+        created = #{created,jdbcType=VARCHAR},
+      </if>
+      <if test="logintime != null" >
+        loginTime = #{logintime,jdbcType=VARCHAR},
+      </if>
+      <if test="validatecode != null" >
+        validatecode = #{validatecode,jdbcType=VARCHAR},
+      </if>
+      <if test="outdate != null" >
+        outdate = #{outdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uflowertv.model.User" >
+    update wx_system_user
+    set pwd = #{pwd,jdbcType=VARCHAR},
+      uname = #{uname,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      created = #{created,jdbcType=VARCHAR},
+      loginTime = #{logintime,jdbcType=VARCHAR},
+      validatecode = #{validatecode,jdbcType=VARCHAR},
+      outdate = #{outdate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

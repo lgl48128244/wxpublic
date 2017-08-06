@@ -1,0 +1,84 @@
+@media screen and (min-width: 240px) and (max-width: 319px){
+    html{
+        font-size: 12px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 359px){
+    html{
+        font-size: 16px;
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 391px){
+    html{
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: 392px) and (max-width: 539px){
+    html{
+        font-size: 19px;
+    }
+}
+
+@media screen and (min-width: 540px) {
+    html{
+        font-size: 27px;
+    }
+}
+
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.title{
+    position: fixed;
+    z-index: 100;
+    background-color: #00a9a7;
+    text-align: center;
+    width: 100%;
+    height: 2.75rem;
+    box-sizing: border-box;
+    top:0;
+}
+.title p{
+    height: 2.667rem;
+    line-height: 2.667rem;
+    font-size: 0.889rem;
+    vertical-align: middle;
+    color: rgba(255,255,255,0.85);
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    margin: 0;
+}
+.title .back{
+    height: 1.778rem;
+    width: 1.778rem;
+    position: absolute;
+    left: 0.5rem;
+    top: 0.444rem;
+    bottom: 0.444rem;
+    vertical-align: middle;
+}
+
+.toast-tip {
+    position: fixed;
+    z-index: 1000;
+    text-align: center;
+    font-size:.88rem;
+    bottom:1rem;
+    color:#11a163;
+    background-color: rgba(143, 142, 142,.9);
+    border-radius: 5px;
+    width:70%;
+    left:15%;
+    line-height: 1.5rem;
+    word-break: break-all;
+}

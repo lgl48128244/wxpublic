@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:aop="http://www.springframework.org/schema/aop" 
+		xsi:schemaLocation="http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context.xsd 
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- 自动扫描(自动注入) -->
+	<context:component-scan base-package="com.uflowertv" />
+	<!-- 数据源 -->
+	<!-- JNDI -->
+	<!-- <bean id="JNDIdataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> <property name="jndiName" value="java:comp/env/jdbc/OracleDataSource"/> 
+		</bean> -->
+	<bean id="mappings" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		 <property name="locations" value="classpath:jdbc.properties"></property> 
+	</bean> 
+	
+	<!-- 加载properties方式的DBCP -->
+	 <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> 
+		<property name="driverClassName" value="${jdbc.driverClassName}" /> 
+		<property name="url" value="${jdbc.url}" /> 
+		<property name="username" value="${jdbc.username}" /> 
+		<property name="password" value="${jdbc.password}" /> 
+		<!-- 连接池配置 -->
+		
+		<!--initialSize: 初始化连接-->  
+		<property name="initialSize" value="5"/>  
+		<!--maxIdle: 最大空闲连接-->  
+		<property name="maxIdle" value="10"/>  
+		<!--minIdle: 最小空闲连接-->  
+		<property name="minIdle" value="5"/>  
+		<!--maxActive: 最大连接数量-->  
+		<property name="maxActive" value="30"/>  
+		<!--maxWait:  获取连接最大数量等待时间-->  
+		<property name="maxWait" value="3000"/>  
+		<!--removeAbandoned: 是否自动回收超时连接-->  
+		<property name="removeAbandoned" value="true"/>  
+		<!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->  
+		<property name="removeAbandonedTimeout" value="180"/>  
+		
+		<property name="validationQuery" value="${validationQuery}"></property>
+		<property name="testWhileIdle" value="${testWhileIdle}"></property>
+		<property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"></property>
+		<property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"></property>
+		<property name="testOnBorrow" value="${testOnBorrow}"></property>
+		 <!-- 连接被泄露时是否打印 -->  
+		<property name="logAbandoned" value="true"></property>
+	</bean>
+	
+	<!-- sessionFactory 将spring和mybatis整合 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis.xml" />
+	</bean>
+	
+	<!-- 相当于实现类的@Repository,因为接口不能用@Repository. -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.uflowertv" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+	
+	<!-- 事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 为service添加事务处理 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="init*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="create*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="list*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="search*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 需要引入aop的命名空间（配置事物的切入点） -->
+	<aop:config>
+		<!-- 切入点指明了在执行Service的所有方法时产生事务拦截操作 -->
+		<aop:pointcut expression="execution(public * com.uflowertv.*.service.*.*(..))" id="txPointCut" />
+		<!-- 定义了将采用何种拦截操作，这里引用到 txAdvice -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut" />
+	</aop:config>
+	
+	<import resource="applicationContext-timer.xml"/>
+</beans>

@@ -1,0 +1,270 @@
+@media screen and (min-width: 320px) and (max-width: 359px){
+    html{
+        font-size: 16px;
+    }
+}
+@media screen and (min-width: 360px) and (max-width: 539px){
+    html{
+        font-size: 18px;
+    }
+}
+@media screen and (min-width: 540px) {
+    html{
+        font-size: 27px;
+    }
+}
+
+body div{
+    background: #FAFAFA;
+}
+input{
+    background: #FAFAFA;
+}
+.text_b {
+    font-size: 1rem;
+    color: #343434;
+}
+img{
+    height: 1rem;
+    /*vertical-align:middle;*/
+    display: block;
+}
+.action_bar{
+    width: 100%;
+    height: 2.750rem;
+    background: #00a9a7;
+    line-height: 2.750rem;
+}
+.back_text{
+    font-size: 1.125rem;
+    color: #ffffff;
+    float: left;
+    background: #00a9a7;
+    text-shadow: none;
+}
+.icon_back{
+    float:left;
+    margin:0.875rem 0.625rem 0.875rem  0.875rem;
+    /*vertical-align:middle;*/
+    background: #00a9a7;
+}
+.mobilephone{
+    width:75.757575757575%;
+    border: none;
+    height: 2.1rem;
+    margin-top: 0.06rem;
+    position: absolute;
+    left: .500rem;
+    line-height: 1.5rem;
+}
+.row_username{
+    position: relative;
+    margin: 3.53rem 0.938rem .778rem 0.938rem;
+    height: 2.388rem;
+    border:0.063rem solid #c7c7c7;
+    border-radius: 0.2rem;
+}
+.username_icon{
+    width: 1.500rem;
+    height: 1.500rem;
+    position: absolute;
+    vertical-align: middle;
+    left: 1rem;
+    top: 0.656rem;
+}
+.row_auth_code{
+    position: relative;
+    margin: .389rem 0.938rem;
+    height: 2.813rem;
+}
+.auth_code_input{
+    position: relative;
+    /*margin: 30rem 15rem 20rem 15rem;*/
+    height: 2.388rem;
+    width: 59%;
+    border: 0.063rem solid #c7c7c7;
+    border-radius: 0.2rem;
+    display: inline-block;
+}
+.auth_code_icon{
+    width:1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    vertical-align: middle;
+    left: 1rem;
+    top: 0.656rem;
+}
+.auth_code{
+    width:60%;
+    border: 0rem;
+    height: 2.1rem;
+    margin-top: 0.06rem;
+    left: .500rem;
+    position: absolute;
+    line-height: 1.5rem;
+}
+.get_auth_code{
+    width: 6.250rem;
+    float: right;
+    height: 2.388rem;
+    line-height: 2.388rem;
+    vertical-align: middle;
+    color: #00a9a7;
+    border-radius:.3rem;
+    text-align: center;
+    border-radius: 0.2rem;
+    text-shadow: none;
+  /*  background-color:#00a9a7;*/
+    border:1px solid #00a9a7
+}
+.auth_code_disable {
+    background-color: #868686;
+    color: rgba(255,255,255,.6);
+    border:1px solid #868686;
+}
+.row_agreement{
+    position: relative;
+    margin: 1.000rem 0.938rem 1.250rem 0.938rem;
+    height: 2.388rem;
+}
+.tip_text{
+    font-size: 0.875rem;
+    color: rgba(34,34,34,.4);
+    height: 1.063rem;
+    line-height: 1.063rem;
+}
+.row_set_password{
+    position: relative;
+    margin: 1.875rem 0.938rem 0.938rem 0.938rem;
+    height: 2.388rem;
+    border:0.063rem solid #c7c7c7;
+    border-radius: 0.2rem;
+}
+.set_password_icon{
+    width:1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    vertical-align: middle;
+    left: 1rem;
+    top: 0.656rem;
+}
+.set_password{
+    width:12.500rem;
+    border: 0rem;
+    height: 1.5rem;
+    margin-top: 0.594rem;
+    position: absolute;
+    left: .500rem;
+    line-height: 1.5rem;
+}
+.row_set_password_tip{
+    position: relative;
+    margin: 0rem 0.938rem 0.938rem 0.938rem;
+    color:#868686;
+    font-size: 0.875rem;
+}
+.set_pass{
+    color:#00a9a7;
+    position: relative;
+    margin: 0.778rem 0.938rem 0 0.938rem;
+    height: 2.388rem;
+    line-height: 2.388rem;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+    text-align: center;
+    font-size: 1rem;
+    border: 1px solid #00a9a9;
+}
+.next {
+    position: relative;
+    margin: 7.778rem 0.938rem 0 0.938rem;
+    height: 2.388rem;
+    line-height: 2.388rem;
+    vertical-align: middle;
+    border-radius: 0.2rem;
+    text-align: center;
+    font-size: 1rem;
+    background-color: #28c45f;
+    color: #ffffff;
+}
+.info {
+    position: relative;
+    margin: 1.2rem 0.938rem 1.50rem 0.938rem;
+    font-size: .667rem;
+    color:rgba(52, 52, 52,.4);
+}
+.err_tip{
+    margin-left: auto;
+    margin-right: auto;
+    color: #f86b3a;
+    font-size: 0.875rem;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    top: 17rem;
+    z-index: 2000;
+}
+.delete_ico
+{
+    float: right;
+    height: 1.125rem;
+    width: 1.125rem;
+    position: relative;
+    margin: 0.750rem;
+}
+.eye_ico
+{
+    float: right;
+    height: 1.125rem;
+    width: 1.125rem;
+    position: relative;
+    margin: 0.750rem;
+}
+.rule_ico
+{
+    float: left;
+    height: 1.063rem;
+    width: 1.063rem;
+    position: relative;
+    margin-right: 0.5rem;
+}
+.button_disable{
+    opacity: 0.85;
+    background-color:#7fd4d3 !important;
+    color: #ffffff;
+    border:1px solid #7fd4d3;
+}
+.button_able {
+
+    background-color:#00a9a7 !important;
+    color: #ffffff;
+    border:1px solid #00a9a7;
+}
+.set_pass_able {
+    pointer-events: auto;
+    background-color:#28c45f;
+    color:#ffffff;
+}
+.button_clicked{
+    background-color:#00908e !important;
+}
+.get_pic_auth_code{
+    width: 6.250rem;
+    float: right;
+    height: 2.388rem;
+    line-height: 2.388rem;
+    vertical-align: middle;
+    /*color: #ffffff;*/
+    text-align: center;
+    border-radius: 0.2rem;
+    text-shadow: none;
+    /*background-color:#cd4b42;*/
+    background-size: 100% 100%;
+}
+/*input �� position fixed����ʧЧ*/
+.buttons{
+    position:relative;
+    margin-top: 5rem;
+    bottom: 0;
+    padding-bottom: 0;
+}

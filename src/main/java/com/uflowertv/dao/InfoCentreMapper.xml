@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uflowertv.dao.InfoCentreMapper" >
+  <resultMap id="BaseResultMap" type="com.uflowertv.model.InfoCentre" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wx_user_id" property="wxUserId" jdbcType="VARCHAR" />
+    <result column="wx_user_phone" property="wxUserPhone" jdbcType="VARCHAR" />
+    <result column="wx_user_picurl" property="wxUserPicurl" jdbcType="VARCHAR" />
+    <result column="wx_user_msgid" property="wxUserMsgid" jdbcType="VARCHAR" />
+    <result column="wx_user_mediaid" property="wxUserMediaid" jdbcType="VARCHAR" />
+    <result column="wx_public_id" property="wxPublicId" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
+    <result column="ext2" property="ext2" jdbcType="VARCHAR" />
+    <result column="ext3" property="ext3" jdbcType="VARCHAR" />
+    <result column="ext4" property="ext4" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.uflowertv.model.InfoCentre" extends="BaseResultMap" >
+    <result column="wx_user_content" property="wxUserContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wx_user_id, wx_user_phone, wx_user_picurl, wx_user_msgid, wx_user_mediaid, wx_public_id, 
+    createTime, ext1, ext2, ext3, ext4
+  </sql>
+  <sql id="Blob_Column_List" >
+    wx_user_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.uflowertv.model.InfoCentreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_info_centre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.uflowertv.model.InfoCentreExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_info_centre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_info_centre
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from wx_info_centre
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.uflowertv.model.InfoCentreExample" >
+    delete from wx_info_centre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.uflowertv.model.InfoCentre" >
+    insert into wx_info_centre (id, wx_user_id, wx_user_phone, 
+      wx_user_picurl, wx_user_msgid, wx_user_mediaid, 
+      wx_public_id, createTime, ext1, 
+      ext2, ext3, ext4, wx_user_content
+      )
+    values (#{id,jdbcType=VARCHAR}, #{wxUserId,jdbcType=VARCHAR}, #{wxUserPhone,jdbcType=VARCHAR}, 
+      #{wxUserPicurl,jdbcType=VARCHAR}, #{wxUserMsgid,jdbcType=VARCHAR}, #{wxUserMediaid,jdbcType=VARCHAR}, 
+      #{wxPublicId,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{wxUserContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.uflowertv.model.InfoCentre" >
+    insert into wx_info_centre
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="wxUserId != null" >
+        wx_user_id,
+      </if>
+      <if test="wxUserPhone != null" >
+        wx_user_phone,
+      </if>
+      <if test="wxUserPicurl != null" >
+        wx_user_picurl,
+      </if>
+      <if test="wxUserMsgid != null" >
+        wx_user_msgid,
+      </if>
+      <if test="wxUserMediaid != null" >
+        wx_user_mediaid,
+      </if>
+      <if test="wxPublicId != null" >
+        wx_public_id,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="ext1 != null" >
+        ext1,
+      </if>
+      <if test="ext2 != null" >
+        ext2,
+      </if>
+      <if test="ext3 != null" >
+        ext3,
+      </if>
+      <if test="ext4 != null" >
+        ext4,
+      </if>
+      <if test="wxUserContent != null" >
+        wx_user_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserId != null" >
+        #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPhone != null" >
+        #{wxUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPicurl != null" >
+        #{wxUserPicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserMsgid != null" >
+        #{wxUserMsgid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserMediaid != null" >
+        #{wxUserMediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxPublicId != null" >
+        #{wxPublicId,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserContent != null" >
+        #{wxUserContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.uflowertv.model.InfoCentreExample" resultType="java.lang.Integer" >
+    select count(*) from wx_info_centre
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_info_centre
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserId != null" >
+        wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserPhone != null" >
+        wx_user_phone = #{record.wxUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserPicurl != null" >
+        wx_user_picurl = #{record.wxUserPicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserMsgid != null" >
+        wx_user_msgid = #{record.wxUserMsgid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserMediaid != null" >
+        wx_user_mediaid = #{record.wxUserMediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxPublicId != null" >
+        wx_public_id = #{record.wxPublicId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext1 != null" >
+        ext1 = #{record.ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext2 != null" >
+        ext2 = #{record.ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext3 != null" >
+        ext3 = #{record.ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ext4 != null" >
+        ext4 = #{record.ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxUserContent != null" >
+        wx_user_content = #{record.wxUserContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update wx_info_centre
+    set id = #{record.id,jdbcType=VARCHAR},
+      wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{record.wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picurl = #{record.wxUserPicurl,jdbcType=VARCHAR},
+      wx_user_msgid = #{record.wxUserMsgid,jdbcType=VARCHAR},
+      wx_user_mediaid = #{record.wxUserMediaid,jdbcType=VARCHAR},
+      wx_public_id = #{record.wxPublicId,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR},
+      wx_user_content = #{record.wxUserContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_info_centre
+    set id = #{record.id,jdbcType=VARCHAR},
+      wx_user_id = #{record.wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{record.wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picurl = #{record.wxUserPicurl,jdbcType=VARCHAR},
+      wx_user_msgid = #{record.wxUserMsgid,jdbcType=VARCHAR},
+      wx_user_mediaid = #{record.wxUserMediaid,jdbcType=VARCHAR},
+      wx_public_id = #{record.wxPublicId,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=VARCHAR},
+      ext1 = #{record.ext1,jdbcType=VARCHAR},
+      ext2 = #{record.ext2,jdbcType=VARCHAR},
+      ext3 = #{record.ext3,jdbcType=VARCHAR},
+      ext4 = #{record.ext4,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.uflowertv.model.InfoCentre" >
+    update wx_info_centre
+    <set >
+      <if test="wxUserId != null" >
+        wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPhone != null" >
+        wx_user_phone = #{wxUserPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserPicurl != null" >
+        wx_user_picurl = #{wxUserPicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserMsgid != null" >
+        wx_user_msgid = #{wxUserMsgid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserMediaid != null" >
+        wx_user_mediaid = #{wxUserMediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxPublicId != null" >
+        wx_public_id = #{wxPublicId,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="ext1 != null" >
+        ext1 = #{ext1,jdbcType=VARCHAR},
+      </if>
+      <if test="ext2 != null" >
+        ext2 = #{ext2,jdbcType=VARCHAR},
+      </if>
+      <if test="ext3 != null" >
+        ext3 = #{ext3,jdbcType=VARCHAR},
+      </if>
+      <if test="ext4 != null" >
+        ext4 = #{ext4,jdbcType=VARCHAR},
+      </if>
+      <if test="wxUserContent != null" >
+        wx_user_content = #{wxUserContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.uflowertv.model.InfoCentre" >
+    update wx_info_centre
+    set wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picurl = #{wxUserPicurl,jdbcType=VARCHAR},
+      wx_user_msgid = #{wxUserMsgid,jdbcType=VARCHAR},
+      wx_user_mediaid = #{wxUserMediaid,jdbcType=VARCHAR},
+      wx_public_id = #{wxPublicId,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR},
+      wx_user_content = #{wxUserContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.uflowertv.model.InfoCentre" >
+    update wx_info_centre
+    set wx_user_id = #{wxUserId,jdbcType=VARCHAR},
+      wx_user_phone = #{wxUserPhone,jdbcType=VARCHAR},
+      wx_user_picurl = #{wxUserPicurl,jdbcType=VARCHAR},
+      wx_user_msgid = #{wxUserMsgid,jdbcType=VARCHAR},
+      wx_user_mediaid = #{wxUserMediaid,jdbcType=VARCHAR},
+      wx_public_id = #{wxPublicId,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      ext1 = #{ext1,jdbcType=VARCHAR},
+      ext2 = #{ext2,jdbcType=VARCHAR},
+      ext3 = #{ext3,jdbcType=VARCHAR},
+      ext4 = #{ext4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
