@@ -59,6 +59,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis.xml" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
 	</bean>
 	
 	<!-- 相当于实现类的@Repository,因为接口不能用@Repository. -->
